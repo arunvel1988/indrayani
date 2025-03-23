@@ -1,69 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indrayani SC Fixtures & Results</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
+{% extends "base.html" %}
 
-<div class="container mt-4">
-    <!-- Back & Home Buttons -->
-    <div class="d-flex justify-content-between mb-3">
-        <button class="btn btn-secondary" onclick="history.back()">⬅ Back</button>
-        <a href="http://localhost:5000/" class="btn btn-primary">🏠 Home</a>
+{% block title %}Fixtures & Results{% endblock %}
 
+{% block content %}
+<h2 class="text-center">Indrayani SC Fixtures & Results</h2>
+
+<div class="text-center my-3">
+    <label for="yearSelect"><strong>Select Year:</strong></label>
+    <select id="yearSelect" class="form-select d-inline-block w-auto">
+        <option value="2026">2026</option>
+        <option value="2025" selected>2025</option>
+    </select>
+
+    <label for="matchTypeSelect" class="ms-3"><strong>Match Type:</strong></label>
+    <select id="matchTypeSelect" class="form-select d-inline-block w-auto">
+        <option value="league" selected>League Matches</option>
+        <option value="tournament">Tournament Matches</option>
+        
+    </select>
+</div>
+
+<ul class="nav nav-tabs justify-content-center" id="teamTabs">
+    <li class="nav-item">
+        <a class="nav-link active" id="senior-tab" data-bs-toggle="tab" data-bs-target="#senior">Indrayani A (Senior Team)</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link" id="junior-tab" data-bs-toggle="tab" data-bs-target="#junior">Indrayani B (Junior Team)</a>
+    </li>
+</ul>
+
+<div class="tab-content mt-4">
+    <div class="tab-pane fade show active" id="senior">
+        <h3 class="text-primary">🏆 Indrayani A (Senior Team)</h3>
+        <div id="senior-content"></div>
+        
+        <h4 class="mt-4 text-success">🥇 Best Player:</h4>
+        <p id="best-player-senior" class="fw-bold"></p>
+
+        <h4 class="mt-2 text-warning">⚽ Top Scorer:</h4>
+        <p id="top-scorer-senior" class="fw-bold"></p>
     </div>
+    
+    <div class="tab-pane fade" id="junior">
+        <h3 class="text-danger">⚽ Indrayani B (Junior Team)</h3>
+        <div id="junior-content"></div>
+        
+        <h4 class="mt-4 text-success">🥇 Best Player:</h4>
+        <p id="best-player-junior" class="fw-bold"></p>
 
-    <h2 class="text-center">Indrayani SC Fixtures & Results</h2>
-
-    <div class="text-center my-3">
-        <label for="yearSelect"><strong>Select Year:</strong></label>
-        <select id="yearSelect" class="form-select d-inline-block w-auto">
-            <option value="2026">2026</option>
-            <option value="2025" selected>2025</option>
-        </select>
-
-        <label for="matchTypeSelect" class="ms-3"><strong>Match Type:</strong></label>
-        <select id="matchTypeSelect" class="form-select d-inline-block w-auto">
-            <option value="league" selected>League Matches</option>
-            <option value="tournament">Tournament Matches</option>
-        </select>
-    </div>
-
-    <ul class="nav nav-tabs justify-content-center" id="teamTabs">
-        <li class="nav-item">
-            <a class="nav-link active" id="senior-tab" data-bs-toggle="tab" data-bs-target="#senior">Indrayani A (Senior Team)</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="junior-tab" data-bs-toggle="tab" data-bs-target="#junior">Indrayani B (Junior Team)</a>
-        </li>
-    </ul>
-
-    <div class="tab-content mt-4">
-        <div class="tab-pane fade show active" id="senior">
-            <h3 class="text-primary">🏆 Indrayani A (Senior Team)</h3>
-            <div id="senior-content"></div>
-        </div>
-        <div class="tab-pane fade" id="junior">
-            <h3 class="text-danger">⚽ Indrayani B (Junior Team)</h3>
-            <div id="junior-content"></div>
-        </div>
-    </div>
-
-    <div class="mt-5">
-        <h2 class="text-center">🏅 Player Achievements</h2>
-        <div class="row">
-            <div class="col-md-6">
-                <h3 class="text-success">🥇 Best Player</h3>
-                <p id="best-player" class="fw-bold"></p>
-            </div>
-            <div class="col-md-6">
-                <h3 class="text-warning">⚽ Top Scorer</h3>
-                <p id="top-scorer" class="fw-bold"></p>
-            </div>
-        </div>
+        <h4 class="mt-2 text-warning">⚽ Top Scorer:</h4>
+        <p id="top-scorer-junior" class="fw-bold"></p>
     </div>
 </div>
 
@@ -71,87 +57,86 @@
     const fixturesData = {
         "2026": {
             "league": {
-                "senior": `<p class="text-muted">NA</p>`,
-                "junior": `<p class="text-muted">NA</p>`
+                "senior": `<p class="text-muted">No fixtures available.</p>`,
+                "junior": `<p class="text-muted">No fixtures available.</p>`
             },
             "tournament": {
-                "senior": `<p class="text-muted">NA</p>`,
-                "junior": `<p class="text-muted">NA</p>`
+                "senior": `<p class="text-muted">No fixtures available.</p>`,
+                "junior": `<p class="text-muted">No fixtures available.</p>`
             }
         },
         "2025": {
             "league": {
                 "senior": `
-                    <h4 class="mt-3">2025 League Matches</h4>
-                    <table class="table table-striped table-hover shadow-sm">
-                        <thead class="table-primary">
-                            <tr><th>Date</th><th>Opponent</th><th>Venue</th><th>Result/Status</th></tr>
+                    <table class="table table-bordered">
+                        <thead class="table-dark">
+                            <tr><th>Date</th><th>Opponent</th><th>Result</th><th>Score</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td>March 15, 2025</td><td>Pune Warriors</td><td>Indrayani Stadium</td><td>Win (2-1)</td></tr>
-                            <tr><td>March 22, 2025</td><td>Goa Kings</td><td>Goa Stadium</td><td>Draw (1-1)</td></tr>
-                            <tr><td>April 10, 2025</td><td>Mumbai Titans</td><td>Mumbai Arena</td><td>Upcoming</td></tr>
+                            <tr><td>April 20</td><td>Pune Strikers</td><td>Upcoming</td><td>-</td></tr>
+                            <tr><td>March 15</td><td>Pune Warriors</td><td>Win</td><td>2-1</td></tr>
+                            <tr><td>March 15</td><td>Pune EXTREME</td><td>2-1</td></tr>
+                                                     
                         </tbody>
-                    </table>
-                `,
+                    </table>`,
                 "junior": `
-                    <h4 class="mt-3">2025 League Matches</h4>
-                    <table class="table table-striped table-hover shadow-sm">
-                        <thead class="table-warning">
-                            <tr><th>Date</th><th>Opponent</th><th>Venue</th><th>Result/Status</th></tr>
+                    <table class="table table-bordered">
+                        <thead class="table-dark">
+                            <tr><th>Date</th><th>Opponent</th><th>Result</th><th>Score</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td>March 10, 2025</td><td>Pune Juniors</td><td>Indrayani Stadium</td><td>Win (3-0)</td></tr>
-                            <tr><td>April 5, 2025</td><td>Goa Youth</td><td>Goa Stadium</td><td>Upcoming</td></tr>
+                            <tr><td>April 18</td><td>Pune Youths</td><td>Upcoming</td><td>-</td></tr>
+                            <tr><td>March 10</td><td>Pune Juniors</td><td>Win</td><td>3-2</td></tr>
+                            <tr><td>April 2</td><td>Pune Colts</td><td>Draw</td><td>1-1</td></tr>                            
                         </tbody>
-                    </table>
-                `
+                    </table>`
             },
             "tournament": {
                 "senior": `
-                    <h4 class="mt-3">2025 Tournament Matches - <span class="text-danger">National Championship</span></h4>
-                    <table class="table table-striped table-hover shadow-sm">
+                    <table class="table table-bordered">
                         <thead class="table-danger">
-                            <tr><th>Date</th><th>Opponent</th><th>Stage</th><th>Result/Status</th></tr>
+                            <tr><th>Date</th><th>Opponent</th><th>Result</th><th>Score</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td>May 12, 2025</td><td>Chennai Warriors</td><td>Quarter-Finals</td><td>Upcoming</td></tr>
+                            <tr><td>May 12</td><td>Pune Warriors</td><td>Upcoming</td><td>-</td></tr>
+                            <tr><td>June 5</td><td>Pune Kings</td><td>Upcoming</td><td>-</td></tr>
                         </tbody>
-                    </table>
-                `,
+                    </table>`,
                 "junior": `
-                    <h4 class="mt-3">2025 Tournament Matches - <span class="text-danger">Junior Championship</span></h4>
-                    <table class="table table-striped table-hover shadow-sm">
+                    <table class="table table-bordered">
                         <thead class="table-danger">
-                            <tr><th>Date</th><th>Opponent</th><th>Stage</th><th>Result/Status</th></tr>
+                            <tr><th>Date</th><th>Opponent</th><th>Result</th><th>Score</th></tr>
                         </thead>
                         <tbody>
-                            <tr><td>May 8, 2025</td><td>Pune Colts</td><td>Group Stage</td><td>Win (2-0)</td></tr>
+                            <tr><td>May 8</td><td>Pune Colts</td><td>Win</td><td>2-0</td></tr>
+                            <tr><td>June 10</td><td>Pune Juniors</td><td>Upcoming</td><td>-</td></tr>
                         </tbody>
-                    </table>
-                `
+                    </table>`
             }
         }
     };
 
     const playerData = {
-        "2026": {
-            "bestPlayer": "NA",
-            "topScorer": "NA"
-        },
-        "2025": {
-            "bestPlayer": "Markand Hardev",
-            "topScorer": "Prasad - 12 Goals"
+        "2026": { "bestPlayerSenior": "NA", "bestPlayerJunior": "NA", "topScorerSenior": "NA", "topScorerJunior": "NA" },
+        "2025": { 
+            "bestPlayerSenior": "Markand Hardev", 
+            "bestPlayerJunior": "Sahil Bhalerao", 
+            "topScorerSenior": "Markand Hardev - 12 Goals", 
+            "topScorerJunior": "Sahil Bhalerao - 8 Goals" 
         }
     };
 
     function updateFixtures() {
         const selectedYear = document.getElementById("yearSelect").value;
         const matchType = document.getElementById("matchTypeSelect").value;
+
         document.getElementById("senior-content").innerHTML = fixturesData[selectedYear][matchType]["senior"];
         document.getElementById("junior-content").innerHTML = fixturesData[selectedYear][matchType]["junior"];
-        document.getElementById("best-player").innerText = playerData[selectedYear]["bestPlayer"];
-        document.getElementById("top-scorer").innerText = playerData[selectedYear]["topScorer"];
+
+        document.getElementById("best-player-senior").innerText = playerData[selectedYear]["bestPlayerSenior"];
+        document.getElementById("best-player-junior").innerText = playerData[selectedYear]["bestPlayerJunior"];
+        document.getElementById("top-scorer-senior").innerText = playerData[selectedYear]["topScorerSenior"];
+        document.getElementById("top-scorer-junior").innerText = playerData[selectedYear]["topScorerJunior"];
     }
 
     document.getElementById("yearSelect").addEventListener("change", updateFixtures);
@@ -160,7 +145,4 @@
     updateFixtures();
 </script>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-</body>
-</html>
+{% endblock %}

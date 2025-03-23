@@ -36,7 +36,8 @@ def read_team_data(file_name):
 @app.route('/teams/senior')
 def senior_team():
     players = read_team_data("senior_team.txt")
-    return render_template('team_details.html', team_name="Senior Team", players=players)
+    return render_template('team_details.html', team_name="Indrayani Sports Cub A",players=players)
+    return render_template('team_details.html', team_name="Indrayani Sports Cub B",players=players)
 
 @app.route('/teams/junior')
 def junior_team():

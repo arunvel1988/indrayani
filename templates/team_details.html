@@ -1,14 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>{{ team_name }}</h2>
-<div class="row">
+<h2 class="text-center">{{ team_name }}</h2>
+<div class="row justify-content-center">
     {% for player in players %}
-    <div class="col-md-4">
-        <div class="card mb-3">
-            <img src="{{ url_for('static', filename='images/' + player.photo) }}" class="card-img-top" alt="{{ player.name }}">
-            <div class="card-body">
-                <h5 class="card-title">{{ player.name }}</h5>
-                <p class="card-text"><strong>Position:</strong> {{ player.position }}</p>
+    <div class="col-6 col-sm-4 col-md-3 d-flex justify-content-center">
+        <div class="card mb-3 text-center" style="width: 8rem;">
+            <img src="{{ url_for('static', filename='images/' + player.photo) }}" 
+                 class="card-img-top mx-auto mt-2" 
+                 alt="{{ player.name }}" 
+                 style="width: 75px; height: 75px; object-fit: cover; border-radius: 5px;">
+            <div class="card-body p-2">
+                <h6 class="card-title mb-1">{{ player.name }}</h6>
+                <p class="card-text" style="font-size: 0.8rem;"><strong>Position:</strong> {{ player.position }}</p>
             </div>
         </div>
     </div>
