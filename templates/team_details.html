@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ team_name }}</h2>
+<div class="row">
+    {% for player in players %}
+    <div class="col-md-4">
+        <div class="card mb-3">
+            <img src="{{ url_for('static', filename='images/' + player.photo) }}" class="card-img-top" alt="{{ player.name }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ player.name }}</h5>
+                <p class="card-text"><strong>Position:</strong> {{ player.position }}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

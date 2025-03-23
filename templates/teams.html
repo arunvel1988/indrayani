@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Our Teams</h2>
+<ul>
+    <li>
+        <a href="{{ url_for('senior_team') }}">Indrayani A (Senior Team)</a>
+        <p>Our Senior Team plays in the <strong>Super Division</strong> of the Pune District Football Association.</p>
+    </li>
+    <li>
+        <a href="{{ url_for('junior_team') }}">Indrayani B (Junior Team)</a>
+        <p>Our Junior Team competes in the <strong>Second Division</strong> of the Pune District Football Association.</p>
+    </li>
+</ul>
+<p>Get more details at <a href="https://pdfa.co.in/dclubs" target="_blank">Pune District Football Association</a>.</p>
+{% endblock %}
